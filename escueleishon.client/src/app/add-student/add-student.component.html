@@ -1,0 +1,52 @@
+<p>HOLAAA YA FUNCIONA :DD</p>
+<div class="container">
+  <div class="row">
+
+    <div class="col-4">
+      <div class="mb-3">
+        <label class="form-label">Número de control:</label>
+        <input class="form-control" type="text" maxlength="30" placeholder="Captura algo..." autocomplete="off" />
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="mb-3">
+        <label class="form-label">Carrera:</label>
+        <select class="form-control">
+          <option value="8">
+            Seleccione--
+          </option>
+          <option *ngFor ="let item of carrers" value="item.idCarrera">
+          {{item.descripcion}}
+         </option>
+        </select>
+</div>
+    </div>
+    <div class="col-4">
+      <div class="mb-3">
+        <label class="form-label">Semestre:</label>
+        <select class="form-control">
+          <option value="8">
+            Seleccione--
+          </option>
+          <option *ngFor="let item of semesters" value="item.idSemestre">
+            {{item.descripcion}}
+          </option>
+        </select>
+      </div>
+
+    </div>
+    <div class="col-4">
+      <div class="mb-3">
+        <label class="form-label">Genero:</label>
+        <select class="form-control">
+          <option value="8">
+            Seleccione--
+          </option>
+          <option *ngFor="let item of genters" value="item.idGenero">
+            {{item.descripcion}}
+          </option>
+        </select>
+      </div>
+
+    </div>
+</div>
