@@ -1,75 +1,38 @@
 import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { getBaseUrl } from '../../main';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnDestroy,
-} from '@angular/core';
-import { MatCalendar } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+
+import { ImportsModule } from '../imports';
+
 
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
   styleUrls: ['./add-student.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [ImportsModule]
 
 })
-export class AddStudentComponent<D> implements OnDestroy {
-  private _destroyed = new Subject<void>();
+export class AddStudentComponent{
 
-  constructor(
-    
-    private _calendar: MatCalendar<D>,
-    private _dateAdapter: DateAdapter<D>,
-    @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
-    cdr: ChangeDetectorRef,
-    private http: HttpClient
-  ) {
-    _calendar.stateChanges.pipe(takeUntil(this._destroyed)).subscribe(() => cdr.markForCheck());
+
+  constructor(private http: HttpClient) {
   }
 
-  ngOnDestroy() {
-    this._destroyed.next();
-    this._destroyed.complete();
-  }
+  public student: Student = new Student();
 
-
-
-
+  public students: any = [];
 
   public carrers: any;
   public genters: any;  
   public semesters: any;
+  public date: any;
   ngOnInit() {
     this.GetCatalogs();
 
 
   }
-  get periodLabel() {
-    return this._dateAdapter
-      .format(this._calendar.activeDate, this._dateFormats.display.monthYearLabel)
-      .toLocaleUpperCase();
-  }
-
-  previousClicked(mode: 'month' | 'year') {
-    this._calendar.activeDate =
-      mode === 'month'
-        ? this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1)
-        : this._dateAdapter.addCalendarYears(this._calendar.activeDate, -1);
-  }
-
-  nextClicked(mode: 'month' | 'year') {
-    this._calendar.activeDate =
-      mode === 'month'
-        ? this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1)
-        : this._dateAdapter.addCalendarYears(this._calendar.activeDate, 1);
-  }
+ 
 
   public GetCatalogs() {
     let ctx = this;
@@ -78,7 +41,9 @@ export class AddStudentComponent<D> implements OnDestroy {
       next: data => {
         ctx.carrers = (data as any).Entity[0];
         ctx.semesters = (data as any).Entity[1];
-        ctx.genters = (data as any).Entity[2]; 
+        ctx.genters = (data as any).Entity[2];
+
+        ctx.students = (data as any).Entity[3]; 
     },
       error: error => {
         console.log(error);
@@ -88,4 +53,43 @@ export class AddStudentComponent<D> implements OnDestroy {
 
   }
 
+  public AddStudents() {
+    let ctx = this;
+
+    let header = {'Content-Type':'application/json'}
+    ctx.http.post(getBaseUrl() + "/Student/AddStudent", JSON.stringify(ctx.student), {headers:header}).subscribe({
+      next: data => {
+        if ((data as any).code == "200") {
+          ctx.students = (data as any).Entity[0];
+
+        }
+        else {
+          
+        }
+      },
+      error: error => {
+        console.log(error);
+      }
+
+    });
+
+  }
+
+}
+
+class Student
+{
+   noControl       :string='';
+   idCarrera       :string='';
+   idSemestre      :string='';
+   idGenero        :string='';
+   nombre          :string='';
+   apellidoPaterno :string='';
+   apellidoMaterno :string='';
+   edad            :string='';
+   CURP            :string='';
+   email           :string='';
+   telefono        :string='';
+   fechaNac        :string='';
+  estatus: string = '';
 }

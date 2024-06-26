@@ -5,13 +5,14 @@
     <div class="col-4">
       <div class="mb-3">
         <label class="form-label">Número de control:</label>
-        <input class="form-control" type="text" maxlength="30" placeholder="Captura algo..." autocomplete="off" />
+        <input class="form-control" type="text" [ngModel]="student.noControl"
+               maxlength="30" placeholder="Captura algo..." autocomplete="off" />
       </div>
     </div>
     <div class="col-4">
       <div class="mb-3">
         <label class="form-label">Carrera:</label>
-        <select class="form-control">
+        <select class="form-control" [ngModel]="student.idCarrera">
           <option value="8">
             Seleccione--
           </option>
@@ -24,7 +25,7 @@
     <div class="col-4">
       <div class="mb-3">
         <label class="form-label">Semestre:</label>
-        <select class="form-control">
+        <select class="form-control" [ngModel]="student.idSemestre">
           <option value="8">
             Seleccione--
           </option>
@@ -38,7 +39,7 @@
     <div class="col-4">
       <div class="mb-3">
         <label class="form-label">Genero:</label>
-        <select class="form-control">
+        <select class="form-control" [ngModel]="student.idGenero">
           <option value="8">
             Seleccione--
           </option>
@@ -53,19 +54,19 @@
     <div class="col-4">
       <div class="mb-3">
         <label class="form-label">Nombre:</label>
-        <input class="form-control" type="text" maxlength="120" autocomplete="off" />
+        <input class="form-control" type="text" [ngModel]="student.nombre" maxlength="120" autocomplete="off" />
       </div>
     </div>
     <div class="col-4">
       <div class="mb-3">
         <label class="form-label">Apellido paterno:</label>
-        <input class="form-control" type="text" maxlength="120" autocomplete="off" />
+        <input class="form-control" type="text" [ngModel]="student.apellidoPaterno" maxlength="120" autocomplete="off" />
       </div>
     </div>
     <div class="col-4">
       <div class="mb-3">
         <label class="form-label">Apellido materno:</label>
-        <input class="form-control" type="text" maxlength="120" autocomplete="off" />
+        <input class="form-control" type="text" [ngModel]="student.apellidoMaterno" maxlength="120" autocomplete="off" />
       </div>
     </div>
 
@@ -77,57 +78,67 @@
     <div class="col-3">
       <div class="mb-3">
         <label class="form-label">Edad:</label>
-        <input class="form-control" type="number" min="17" max="99" autocomplete="off" />
+        <input class="form-control" type="number" [ngModel]="student.edad" min="17" max="99" autocomplete="off" />
       </div>
     </div>
     <div class="col-3">
       <div class="mb-3">
         <label class="form-label">CURP:</label>
-        <input class="form-control" type="number" maxlength="18" autocomplete="off" />
+        <input class="form-control" type="text" [ngModel]="student.CURP" maxlength="18" autocomplete="off" />
       </div>
     </div>
     <div class="col-3">
       <div class="mb-3">
         <label class="form-label">Email:</label>
-        <input class="form-control" type="email" maxlength="120" autocomplete="off" />
+        <input class="form-control" type="email" [ngModel]="student.email" maxlength="120" autocomplete="off" />
       </div>
     </div>
     <div class="col-3">
       <div class="mb-3">
         <label class="form-label">Télefono:</label>
-        <input class="form-control" type="tel" maxlength="13" autocomplete="off" />
+        <input class="form-control" type="tel" [ngModel]="student.telefono" maxlength="13" autocomplete="off" />
       </div>
     </div>
     <div class="col-3">
       <div class="mb-3">
         <label class="form-label">Fecha de nac:</label>
-        <input class="form-control" type="text" maxlength="16" autocomplete="off" />
+        <!--<input class="form-control" type="text" maxlength="16" autocomplete="off" />-->
+        <p-calendar [(ngModel)]="student.fechaNac" />
       </div>
     </div>
 
     <div class="col-3">
       <div class="mb-3">
         <br />
-        <button class="btn btn-primary">Agregar </button>
+        <button class="btn btn-primary" (click)="AddStudents()">Agregar </button>
       </div>
     </div>
 
-    <!--<mat-form-field>
-    <mat-label>Custom calendar header</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker [calendarHeaderComponent]="exampleHeader"></mat-datepicker>
-  </mat-form-field>-->
-    <mat-form-field appearance="fill">
-      <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+
 
   </div>
 
+  <div class="row">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>No Control</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of students">
+            <td>{{row.controlNumber}}</td>
+            <td>{{row.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
+  </div>
+
+
+
+</div>
 

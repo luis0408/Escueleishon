@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common'; 
 
 
 
@@ -17,11 +18,14 @@ import { RouterModule } from '@angular/router';
   declarations: [
     AppComponent,
     
-    AddStudentComponent
+    //AddStudentComponent
 
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserAnimationsModule,
+    CommonModule,
+
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
@@ -29,7 +33,8 @@ import { RouterModule } from '@angular/router';
       { path: 'AddStudent', component: AddStudentComponent },
     ])
   ],
-  providers: [],
+
+  providers: [BrowserModule, CommonModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
